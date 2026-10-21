@@ -1,9 +1,9 @@
 {
-  "name": "tg_ani-sticker_maker",
+  "name": "telegram-video-sticker-maker",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Convert video to a square, size-aware WebM entirely in your browser.",
+  "description": "Telegram video sticker maker: convert MP4, MOV and WebM to 512px VP9 stickers locally.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

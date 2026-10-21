@@ -24,7 +24,7 @@ export interface TranscodeResult {
   width: number;
   height: number;
   duration: number;
-  codec: 'VP9' | 'VP8';
+  codec: 'VP9';
 }
 
 interface EncoderAttempt {
@@ -51,7 +51,6 @@ export async function pickVideoCodec(): Promise<Pick<EncoderAttempt, 'codec' | '
 
   const candidates = [
     { codec: 'vp09.00.10.08', muxerCodec: 'V_VP9' },
-    { codec: 'vp8', muxerCodec: 'V_VP8' },
   ];
 
   for (const candidate of candidates) {
@@ -65,7 +64,7 @@ export async function pickVideoCodec(): Promise<Pick<EncoderAttempt, 'codec' | '
     if (support.supported) return candidate;
   }
 
-  throw new Error('This browser has no VP9 or VP8 encoder available.');
+  throw new Error('Telegram requires VP9. This browser has no VP9 encoder available. Try a current version of Chrome or Edge.');
 }
 
 /**
@@ -340,7 +339,7 @@ export async function transcodeVideo(
       width: OUTPUT_SIZE,
       height: OUTPUT_SIZE,
       duration: resultDuration,
-      codec: codec.muxerCodec === 'V_VP9' ? 'VP9' : 'VP8',
+      codec: 'VP9',
     };
   } finally {
     video.pause();

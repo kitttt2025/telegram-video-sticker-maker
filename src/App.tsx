@@ -232,11 +232,11 @@ function App() {
       <div className="ambient ambient-two" />
 
       <header className="site-header">
-        <a className="brand" href="./" aria-label="tg_ani-sticker_maker home">
+        <a className="brand" href="./" aria-label="Telegram Video Sticker Maker home">
           <span className="brand-mark" aria-hidden="true">
             <span />
           </span>
-          <span>tg_ani-sticker_maker</span>
+          <span>Telegram Video Sticker Maker</span>
         </a>
         <div className="privacy-note">
           <span className="status-dot" />
@@ -255,9 +255,10 @@ function App() {
             <em>Zero uploads.</em>
           </h1>
           <p className="intro">
-            Turn video into a Telegram animated sticker: 512 x 512, VP9, up to 3 seconds,
+            Turn video into a Telegram video sticker: 512 x 512, VP9, up to 3 seconds,
             under 256 KB, and silent. Everything happens inside your browser.
           </p>
+          <a className="guide-link" href="#sticker-guide">點加到 Telegram？ / Quick guide ↓</a>
 
           <div className="feature-row" aria-label="Features">
             <div>
@@ -433,7 +434,7 @@ function App() {
                 />
               </div>
               <div className="telegram-specs">
-                <span>Telegram animated sticker</span>
+                <span>Telegram video sticker</span>
                 <span>512 x 512</span>
                 <span>3 s max</span>
                 <span>256 KB max</span>
@@ -589,6 +590,7 @@ function App() {
             </div>
 
             <div className="result-actions">
+              <a className="guide-link" href="#sticker-guide">下一步：加入 Telegram →</a>
               <button
                 type="button"
                 className="primary-button"
@@ -603,11 +605,47 @@ function App() {
             </div>
           </section>
         )}
+        <section className="sticker-guide" id="sticker-guide" aria-labelledby="guide-title" lang="zh-Hant-HK">
+          <div className="guide-heading">
+            <div>
+              <p className="eyebrow">Quick guide / 簡單教學</p>
+              <h2 id="guide-title">點加 sticker 到 Telegram？</h2>
+              <p>揀片、下載，再用官方 @Stickers 加入你嘅貼圖包。</p>
+            </div>
+            <a className="guide-bot-link" href="https://t.me/Stickers" target="_blank" rel="noopener noreferrer">
+              開啟 @Stickers ↗
+            </a>
+          </div>
+          <ol className="guide-steps">
+            <li>
+              <h3>揀片同下載</h3>
+              <p>揀選裝置上嘅影片，截取最多 3 秒，按 <strong>Create WebM</strong>，完成後按 <strong>Download WebM</strong>。</p>
+            </li>
+            <li>
+              <h3>開一個新 pack</h3>
+              <p>開啟官方 <strong>@Stickers</strong>，按 Start，輸入 <code>/newvideo</code>，再輸入貼圖包名稱。</p>
+            </li>
+            <li>
+              <h3>傳送 WebM 檔案</h3>
+              <p>用附件 → <strong>File／檔案</strong> 傳送下載嘅 .webm，保留原檔；唔好用影片壓縮模式。跟指示揀一個代表佢嘅 emoji。</p>
+            </li>
+            <li>
+              <h3>發佈並加入</h3>
+              <p>輸入 <code>/publish</code>，跟 bot 指示設定圖示及短名稱。打開佢提供嘅連結，按 <strong>Add Stickers／加入貼圖</strong>。</p>
+            </li>
+          </ol>
+          <div className="guide-notes">
+            <p><strong>已有自己嘅 pack？</strong> 輸入 <code>/addsticker</code>，選擇你管理嘅 pack，傳送 .webm 同 emoji，再跟 bot 指示完成。</p>
+            <p><strong>加唔到？</strong> 請確認傳送嘅係下載後嘅 .webm 原檔，並使用 video sticker 指令 <code>/newvideo</code>。<code>/newanimated</code> 係另一種 .tgs 格式。Bot 介面如有改動，以佢顯示嘅選項為準。</p>
+            <p className="guide-privacy">轉檔全程留喺裝置；只有你自行傳送畀 Telegram 時，檔案先會上傳到 Telegram。貼圖包可被分享，請先確認畫面冇私人內容。</p>
+          </div>
+          <p className="guide-reference"><a href="https://core.telegram.org/stickers#video-stickers-and-emoji" target="_blank" rel="noopener noreferrer">Telegram 官方格式要求 ↗</a> · 獨立開源工具，與 Telegram 無隸屬關係。</p>
+        </section>
       </main>
 
       <footer className="site-footer">
-        <span>tg_ani-sticker_maker / built with Codex</span>
-        <span>For Telegram animated stickers / no uploads / no API keys</span>
+        <span>Telegram Video Sticker Maker / built with Codex</span>
+        <span>For Telegram video stickers / no uploads / no API keys</span>
       </footer>
     </div>
   );

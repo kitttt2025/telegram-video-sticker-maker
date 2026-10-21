@@ -7,3 +7,16 @@ dist/
 !.env.example
 coverage/
 *.tsbuildinfo
+
+# Local credentials and private source/export videos
+*.pem
+*.key
+*.p12
+*.pfx
+*.mp4
+*.mov
+*.webm
+*.ogg
+*.ogv
+.codex/
+.agents/
