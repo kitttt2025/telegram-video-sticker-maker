@@ -1,4 +1,6 @@
 import { ArrayBufferTarget, Muxer } from 'webm-muxer';
+import { planVideoFrames, seekDecodedFrame } from './video-frame';
+import { setWebMDuration } from './webm-duration';
 
 export const DEFAULT_SIZE_LIMIT_BYTES = 256 * 1024;
 export const OUTPUT_SIZE = 512;
@@ -101,7 +103,9 @@ export function drawSquareFrame(
   background: string,
 ): void {
   const { videoWidth: width, videoHeight: height } = video;
-  if (!width || !height) return;
+  if (!width || !height || video.readyState < 2 || video.seeking) {
+    throw new Error('The requested video frame has not been decoded yet.');
+  }
 
   context.fillStyle = background;
   context.fillRect(0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
@@ -154,38 +158,6 @@ function waitForEvent(
   });
 }
 
-function seekVideo(video: HTMLVideoElement, time: number, signal?: AbortSignal): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const cleanup = () => {
-      video.removeEventListener('seeked', handleSeeked);
-      video.removeEventListener('error', handleError);
-      signal?.removeEventListener('abort', handleAbort);
-    };
-    const handleSeeked = () => {
-      cleanup();
-      resolve();
-    };
-    const handleError = () => {
-      cleanup();
-      reject(new Error('The browser could not decode this video.'));
-    };
-    const handleAbort = () => {
-      cleanup();
-      reject(new DOMException('Conversion cancelled.', 'AbortError'));
-    };
-
-    if (signal?.aborted) {
-      handleAbort();
-      return;
-    }
-
-    video.addEventListener('seeked', handleSeeked, { once: true });
-    video.addEventListener('error', handleError, { once: true });
-    signal?.addEventListener('abort', handleAbort, { once: true });
-    video.currentTime = time;
-  });
-}
-
 function nextPaint(): Promise<void> {
   return new Promise((resolve) => requestAnimationFrame(() => resolve()));
 }
@@ -195,7 +167,7 @@ async function recordOnce(
   canvas: HTMLCanvasElement,
   options: TranscodeOptions,
   attempt: EncoderAttempt,
-): Promise<Blob> {
+): Promise<{ blob: Blob; duration: number }> {
   const context = canvas.getContext('2d', { alpha: false });
   if (!context) throw new Error('Canvas rendering is unavailable.');
 
@@ -232,8 +204,8 @@ async function recordOnce(
     latencyMode: 'quality',
   });
 
-  const frameCount = Math.max(1, Math.floor(duration * fps));
-  const frameDuration = 1_000_000 / fps;
+  const plan = planVideoFrames(duration, fps);
+  const frameCount = plan.frames.length;
 
   try {
     for (let index = 0; index < frameCount; index += 1) {
@@ -242,28 +214,37 @@ async function recordOnce(
       }
       if (encoderError) throw encoderError;
 
-      await seekVideo(video, startTime + index / fps, options.signal);
+      const timing = plan.frames[index];
+      await seekDecodedFrame(video, startTime + timing.sourceOffset, options.signal);
+      // Let a newly decoded first/last frame become available before capturing it.
+      await nextPaint();
+      if (options.signal?.aborted) throw new DOMException('Conversion cancelled.', 'AbortError');
       drawSquareFrame(context, video, options.fit, options.background);
 
       const frame = new VideoFrame(canvas, {
-        timestamp: Math.round(index * frameDuration),
-        duration: Math.round(frameDuration),
+        timestamp: timing.timestamp,
+        duration: timing.duration,
       });
-      encoder.encode(frame, { keyFrame: index % Math.max(1, fps) === 0 });
-      frame.close();
+      try {
+        encoder.encode(frame, { keyFrame: index % Math.max(1, fps) === 0 });
+      } finally {
+        frame.close();
+      }
 
       while (encoder.encodeQueueSize > 8) {
+        if (options.signal?.aborted) throw new DOMException('Conversion cancelled.', 'AbortError');
+        if (encoderError) throw encoderError;
         await new Promise((resolve) => setTimeout(resolve, 1));
       }
-      await nextPaint();
       options.onProgress?.((index + 1) / frameCount);
     }
 
     await encoder.flush();
     if (encoderError) throw encoderError;
     muxer.finalize();
+    setWebMDuration(target.buffer, plan.duration);
 
-    return new Blob([target.buffer], { type: 'video/webm' });
+    return { blob: new Blob([target.buffer], { type: 'video/webm' }), duration: plan.duration };
   } finally {
     if (encoder.state !== 'closed') encoder.close();
   }
@@ -312,13 +293,9 @@ export async function transcodeVideo(
         throw new DOMException('Conversion cancelled.', 'AbortError');
       }
 
-      const blob = await recordOnce(video, canvas, options, attempt);
+      const { blob, duration } = await recordOnce(video, canvas, options, attempt);
       lastResult = blob;
-      resultDuration = Math.min(
-        options.duration ?? video.duration - (options.startTime ?? 0),
-        video.duration - (options.startTime ?? 0),
-        TELEGRAM_MAX_DURATION,
-      );
+      resultDuration = duration;
       if (blob.size <= options.sizeLimitBytes) break;
     }
 

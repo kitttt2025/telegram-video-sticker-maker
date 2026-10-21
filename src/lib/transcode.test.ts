@@ -26,8 +26,14 @@ describe('Telegram codec compatibility', () => {
 });
 
 describe('preview and export framing', () => {
+  it('refuses to encode metadata-only video as a blank frame', () => {
+    const context = { fillStyle: '', fillRect: vi.fn(), drawImage: vi.fn() };
+    const pendingVideo = { videoWidth: 640, videoHeight: 360, readyState: 1 } as HTMLVideoElement;
+    expect(() => drawSquareFrame(context as unknown as CanvasRenderingContext2D, pendingVideo, 'cover', '#17231d')).toThrow(/not been decoded/);
+    expect(context.drawImage).not.toHaveBeenCalled();
+  });
   const video = {
-    videoWidth: 640, videoHeight: 360, width: 0, height: 0,
+    videoWidth: 640, videoHeight: 360, width: 0, height: 0, readyState: 2, seeking: false,
   } as HTMLVideoElement;
 
   it('uses intrinsic dimensions to fit the full video over the chosen matte', () => {
