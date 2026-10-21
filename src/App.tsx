@@ -232,11 +232,11 @@ function App() {
       <div className="ambient ambient-two" />
 
       <header className="site-header">
-        <a className="brand" href="./" aria-label="video2webm home">
+        <a className="brand" href="./" aria-label="tg_ani-sticker_maker home">
           <span className="brand-mark" aria-hidden="true">
             <span />
           </span>
-          <span>video2webm</span>
+          <span>tg_ani-sticker_maker</span>
         </a>
         <div className="privacy-note">
           <span className="status-dot" />
@@ -606,7 +606,7 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <span>video2webm / built with Codex</span>
+        <span>tg_ani-sticker_maker / built with Codex</span>
         <span>For Telegram animated stickers / no uploads / no API keys</span>
       </footer>
     </div>

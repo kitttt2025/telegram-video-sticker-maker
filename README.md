@@ -1,4 +1,4 @@
-# video2webm
+# tg_ani-sticker_maker
 
 A local-first video converter for **Telegram animated stickers**.
 
