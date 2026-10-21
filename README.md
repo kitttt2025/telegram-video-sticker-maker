@@ -1,122 +1,170 @@
 # Telegram Video Sticker Maker
 
-A local-first video converter for **Telegram video stickers**.
+**Turn a short video into a Telegram sticker, right in your browser.**
 
-Turn an MP4, MOV, WebM, or OGG video into a 512 x 512 silent WebM. Choose the
-best three-second moment, set a size target, and download the result. Conversion stays in your browser; only sending the result to Telegram uploads it.
+Trim an MP4, MOV, WebM or OGG clip, frame it as a square, and download a silent
+VP9 WebM for your Telegram sticker pack. All conversion happens on your device;
+no account, API key or video upload is required.
 
 **[Open the sticker maker](https://kitttt2025.github.io/telegram-video-sticker-maker/)**
+· [English guide](#how-to-add-stickers-to-telegram)
+· [繁體中文教學](#繁體中文使用教學)
+· [Privacy](#privacy)
 
-Free MP4 to WebM converter for Telegram stickers. No account or upload required.
-This independent open-source project is not affiliated with Telegram.
+## What you can do
 
-## 點加 sticker 到 Telegram？
+- **Pick the moment.** Select the start time and keep up to three seconds.
+- **Frame the sticker.** Use **Fill** to crop to a square, or **Fit** to keep the
+  whole frame with a background colour of your choice.
+- **Control the size.** Choose a file-size target and frame rate. The converter
+  retries at lower bitrates to fit the target, or explains what to adjust.
+- **Preview and download.** Check the result before saving the `.webm` file.
+- **Keep conversion local.** No backend, analytics, remote video processing or
+  third-party font requests.
 
-1. **揀片**：拖入 MP4／MOV／WebM／OGG，揀最多 3 秒。`Fill` 會裁成正方形；`Fit` 保留全畫面並加底色。
-2. **下載**：按 **Create WebM**，完成後按 **Download WebM**。
-3. **開新 pack**：到官方 [@Stickers](https://t.me/Stickers)，按 Start，輸入 `/newvideo`，再輸入貼圖包名稱。
-4. **加 sticker**：用附件 → **File／檔案** 傳送下載嘅 `.webm` 原檔，唔好用影片壓縮模式；再按指示傳送代表佢嘅 emoji。
-5. **發佈**：輸入 `/publish`，跟 bot 指示設定圖示及短名稱。打開佢提供嘅連結，按 **Add Stickers／加入貼圖**。
+The website includes a four-step guide in **English** and **Traditional Chinese**.
+Use the language buttons in the guide to switch between them.
 
-**已有自己嘅 pack？** 輸入 `/addsticker`，選擇你管理嘅 pack，傳送 `.webm` 同 emoji，再跟 bot 指示完成。
+## How to add stickers to Telegram
 
-**加唔到？** 請用下載後嘅 `.webm` 原檔，唔好傳原本 MP4。呢個工具製作 video stickers；`/newanimated` 用於 `.tgs`，唔適用。Bot 介面如有改動，以佢顯示嘅選項為準。若瀏覽器無 VP9 編碼器，請試用新版 Chrome／Edge。
+### 1. Create and download a sticker
 
-轉檔全程喺本機進行。你自行將檔案傳畀 Telegram 時先會上傳；貼圖包可以被分享，請先確認畫面冇私人內容。
+1. [Open the app](https://kitttt2025.github.io/telegram-video-sticker-maker/) and
+   drag in a video, or choose one from your device.
+2. Select a clip of up to **3 seconds**. Choose **Fill** or **Fit**, and adjust the
+   background, size limit or frame rate if needed.
+3. Click **Create WebM**, preview the result, then click **Download WebM**.
 
-## Quick start: add your sticker to Telegram
+### 2. Create a new sticker pack
 
-1. Choose a video, select up to three seconds, then click **Create WebM → Download WebM**.
-2. Open the official [@Stickers](https://t.me/Stickers) bot, start it, and send `/newvideo` to name a new pack.
-3. Attach the downloaded `.webm` as a **file/document**, preserving the original file. Send an emoji when prompted.
-4. Send `/publish`, follow the bot's icon and short-name prompts, then open its pack link and choose **Add Stickers**.
+1. Open the official [@Stickers](https://t.me/Stickers) bot in Telegram and press
+   **Start**.
+2. Send `/newvideo`, then enter a name for your pack.
+3. Attach the downloaded `.webm` using **File / Document** so Telegram receives
+   the original file. Send an emoji that represents the sticker when prompted.
+4. Add more stickers if you wish, then send `/publish`.
+5. Follow the bot's prompts for a pack icon and short name. Open the pack link it
+   provides and select **Add Stickers**.
 
-To add to a pack you manage, use `/addsticker`, select the pack, and send the file and emoji. Follow the bot's prompts to finish. The bot also offers a mini app; its current prompts take precedence.
+### Add to a pack you already manage
 
-See the [official Telegram sticker guide](https://core.telegram.org/stickers) and [VP9 requirements](https://core.telegram.org/stickers#video-stickers-and-emoji).
+Send `/addsticker` to [@Stickers](https://t.me/Stickers), choose your pack, and send
+its new WebM file and an emoji. Follow the bot's prompts to finish.
 
-## Telegram sticker targets
+### If something does not work
 
-| Setting | Target |
+- **Telegram rejects the file:** attach the downloaded `.webm` as a file, rather
+  than the source MP4 or a compressed video attachment. Use `/newvideo` for video
+  stickers; `/newanimated` expects `.tgs` animations.
+- **The browser has no VP9 encoder:** try a current version of Chrome or Edge.
+  Encoding support depends on the browser and device.
+- **The clip exceeds the size target:** shorten it or lower the frame rate, then
+  convert it again.
+- **The bot looks different:** follow its current prompts. Telegram also offers
+  a mini app through [@Stickers](https://t.me/Stickers).
+
+See the [official Telegram sticker documentation](https://core.telegram.org/stickers)
+and [video sticker requirements](https://core.telegram.org/stickers#video-stickers-and-emoji).
+This tool creates video stickers; it does not export `.tgs` animations or custom emoji.
+
+## 繁體中文使用教學
+
+本工具可將影片轉換為 Telegram 影片貼圖。轉檔全程在您的裝置上進行，無需註冊帳戶或上傳影片。
+網站的教學區提供 **English** 及 **繁體中文** 切換按鈕。
+
+### 製作並下載貼圖
+
+1. [開啟網站](https://kitttt2025.github.io/telegram-video-sticker-maker/)，拖入影片，或從裝置選取 MP4、MOV、WebM 或 OGG 檔案。
+2. 選取最多 **3 秒**的片段。**Fill** 會將畫面裁切為正方形；**Fit** 會保留完整畫面，並以指定顏色填補空白區域。
+3. 如有需要，可調整檔案大小上限及影格率。按下 **Create WebM**，預覽結果後，再按 **Download WebM** 下載。
+
+### 建立新的貼圖包
+
+1. 在 Telegram 開啟官方 [@Stickers](https://t.me/Stickers) 機器人，按下 **Start**。
+2. 輸入 `/newvideo`，再輸入貼圖包名稱。
+3. 透過附件選單中的 **File / Document（檔案）** 傳送下載的 `.webm`，以保留原始檔案，再依照提示傳送代表該貼圖的表情符號。
+4. 如有需要，可繼續加入其他貼圖。完成後輸入 `/publish`。
+5. 依照提示設定圖示及短名稱，開啟機器人提供的貼圖包連結，再按 **Add Stickers（加入貼圖）**。
+
+**加入現有貼圖包：** 輸入 `/addsticker`，選擇您管理的貼圖包，傳送新的 WebM 檔案及表情符號，再依照提示完成操作。
+
+**檔案無法加入：** 請以檔案形式傳送下載的 `.webm`，避免傳送原始 MP4 或經壓縮的影片附件。
+WebM 貼圖應使用 `/newvideo`；`/newanimated` 適用於 `.tgs` 動畫。
+若瀏覽器沒有 VP9 編碼器，請嘗試使用最新版 Chrome 或 Edge；若檔案超過大小上限，請縮短片段或降低影格率。
+機器人介面如有更新，請以當前提示為準。
+
+**私隱說明：** 只有您自行傳送檔案時，檔案才會上傳至 Telegram。貼圖包可以被分享，發佈前請確認影片及檔案名稱沒有個人資料。
+
+## Output specifications
+
+| Property | Output |
 | --- | --- |
-| Canvas | 512 x 512 |
-| Duration | 3 seconds or less |
-| File size | 256 KB or less |
-| Video | VP9 WebM, no audio |
-| Frame rate | 30 fps |
+| Dimensions | 512 × 512 pixels |
+| Duration | Up to 3 seconds |
+| File size | Up to 256 KB, or your chosen lower target |
+| Format | WebM with VP9 video |
+| Audio | None |
+| Frame rate | 12–30 fps |
 
-The converter uses the browser's native WebCodecs API and a small WebM muxer.
-It makes several encoding attempts at progressively lower bitrates until the
-file fits the selected limit.
-
-## Features
-
-- Drag and drop, or choose a local video.
-- Pick the start point and length of the sticker.
-- Fill the square or fit the whole frame with a custom matte colour.
-- Adjust the target size and frame rate.
-- Preview the source and final sticker before downloading.
-- No server, accounts, API keys, analytics, CDN fonts, or uploads.
+The app uses the browser's WebCodecs API and a WebM muxer. It checks the actual
+encoded file size and makes up to three attempts at lower bitrates. If the file
+still exceeds your target, it asks you to shorten the clip or lower the frame rate.
+It reports an error if VP9 encoding is unavailable.
 
 ## Browser support
 
-Use a current desktop or mobile version of Chrome, Edge, or Firefox with
-WebCodecs support. Safari support depends on the installed WebCodecs encoder.
-If a browser cannot decode the selected source or encode VP9, the app shows
-an error instead of uploading the file elsewhere.
+Use a browser and device with **WebCodecs VP9 encoding** and support for decoding
+your source video. A current version of Chrome or Edge is a good starting point;
+Firefox and Safari support depends on the installed browser and platform.
+Unsupported inputs or encoders produce an error message in the app.
 
-## Run locally
+## Privacy
 
-Requirements: Node.js 22.12 or newer.
+Video decoding, frame rendering, encoding and downloading all happen locally.
+The app has no analytics or remote processing. Its production Content Security
+Policy blocks fetch and WebSocket connections.
+
+GitHub Pages serves the site and may log ordinary requests, including IP
+addresses. Opening a Telegram link takes you to Telegram; sending the exported
+file to the bot uploads that file to Telegram.
+
+Source metadata is not copied into the new video container. However, personal
+information visible in the frames remains, and the download name retains the
+source basename. Check both before sharing.
+
+Read the [security policy](SECURITY.md) and the dated
+[security review](SECURITY-REVIEW.md) for the scope and limits of the checks.
+
+## Local development
+
+Requires **Node.js 22.12 or newer**.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite.
-
-## Build and test
+Open the local URL printed by Vite. To check types, run the tests and create a
+production build:
 
 ```bash
 npm run check
 ```
 
-This runs the TypeScript check, unit tests, and production build. To preview the
-production build:
+Preview the production build with `npm run preview`.
 
-```bash
-npm run preview
-```
+## Deployment
 
-## Deploy
+The production build is a static site in `dist/`. Host that folder on GitHub
+Pages or another static host.
 
-The build output is a static site in `dist/`. Deploy that folder to any static
-host, including GitHub Pages, Cloudflare Pages, Netlify, or Vercel.
+The included GitHub Actions workflow checks and builds every push to `main`,
+then deploys to GitHub Pages. In the repository settings, select
+**Pages → Build and deployment → Source → GitHub Actions**.
 
-The included workflow builds and tests every push to `main`. If you enable
-**Settings -> Pages -> Source: GitHub Actions**, it will also publish the
-production build.
+## Credits and license
 
-## Privacy
+Built with React, WebCodecs and [webm-muxer](https://github.com/Vanilagy/webm-muxer).
+Created with Codex. Released under the [MIT License](LICENSE).
 
-Video decoding, canvas rendering, encoding, and download all happen locally in
-the browser. The production app blocks fetch/WebSocket connections using a Content Security
-Policy and has no analytics or remote processing. GitHub Pages still serves the
-site and may log ordinary requests (including IP addresses), as any web host can.
-Opening the Telegram links navigates to Telegram; manually sending a sticker to
-the bot uploads that file to Telegram. This is separate from local conversion.
-
-Source metadata is not copied into the newly encoded video container, but visible
-personal details in the frames remain, and the download name retains the source
-basename. Check both before sharing. See [SECURITY.md](SECURITY.md) for the
-security model and reporting instructions.
-
-## Credits
-
-Built with Codex. Uses React, WebCodecs, and
-[webm-muxer](https://github.com/Vanilagy/webm-muxer) (MIT).
-
-## License
-
-[MIT](LICENSE)
+This is an independent open-source project and is not affiliated with Telegram.

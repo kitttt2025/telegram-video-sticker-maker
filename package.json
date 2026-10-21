@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Telegram video sticker maker: convert MP4, MOV and WebM to 512px VP9 stickers locally.",
+  "description": "Create Telegram video stickers from MP4, MOV, WebM or OGG. Trim, resize and export VP9 WebM in your browser.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
