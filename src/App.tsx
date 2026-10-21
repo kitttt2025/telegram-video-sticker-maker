@@ -6,8 +6,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { formatBytes, formatDuration, safeDownloadName } from './lib/format';
+import { formatBytes, formatDuration, formatTimecode, safeDownloadName } from './lib/format';
 import StickerGuide from './StickerGuide';
+import StickerPreview from './StickerPreview';
 import {
   DEFAULT_SIZE_LIMIT_BYTES,
   OUTPUT_FPS,
@@ -121,6 +122,13 @@ function App() {
       if (outputRef.current) URL.revokeObjectURL(outputRef.current.url);
     };
   }, []);
+
+  useEffect(() => {
+    // An old export no longer represents the live preview after an edit.
+    if (outputRef.current) URL.revokeObjectURL(outputRef.current.url);
+    setOutput(null);
+    setPhase((current) => current === 'done' ? 'ready' : current);
+  }, [source?.url, startTime, clipDuration, fit, background, fps, sizeLimitKB]);
 
   const clearOutput = () => {
     if (output) URL.revokeObjectURL(output.url);
@@ -239,9 +247,12 @@ function App() {
           </span>
           <span>Telegram Video Sticker Maker</span>
         </a>
-        <div className="privacy-note">
-          <span className="status-dot" />
-          Files stay on this device
+        <div className="header-links">
+          <div className="privacy-note">
+            <span className="status-dot" />
+            Files stay on this device
+          </div>
+          <a className="github-link" href="https://github.com/kitttt2025/telegram-video-sticker-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         </div>
       </header>
 
@@ -308,14 +319,6 @@ function App() {
 
             {source ? (
               <div className="source-summary">
-                <video
-                  className="source-preview"
-                  src={source.url}
-                  controls
-                  loop
-                  muted
-                  playsInline
-                />
                 <div className="file-details">
                   <p className="file-name">{source.file.name}</p>
                   <p>
@@ -350,16 +353,29 @@ function App() {
           </div>
 
           {source && (
+            <StickerPreview
+              key={source.url}
+              src={source.url}
+              startTime={startTime}
+              duration={clipLength}
+              fit={fit}
+              background={background}
+              disabled={phase === 'working'}
+            />
+          )}
+
+          {source && (
             <div className="clip-picker">
               <div className="clip-picker-heading">
                 <div>
                   <span>Sticker range</span>
                   <strong>
-                    {formatDuration(startTime)} - {formatDuration(clipEnd)}
+                    {formatTimecode(startTime)} – {formatTimecode(clipEnd)}
                   </strong>
                 </div>
                 <span>{clipLength.toFixed(2)} s</span>
               </div>
+              <p className="clip-hint">Drag Start to preview the first frame; drag Length to preview the last. Play selection loops only this range.</p>
               <div className="timeline" aria-hidden="true">
                 <div
                   className="timeline-window"
@@ -375,7 +391,7 @@ function App() {
                   id="start-time"
                   type="range"
                   min="0"
-                  max={Math.max(0, source.duration - 0.1)}
+                  max={Math.max(0, source.duration - Math.min(0.5, source.duration))}
                   step="0.05"
                   value={startTime}
                   onChange={(event) => {
@@ -393,9 +409,9 @@ function App() {
                 <input
                   id="clip-duration"
                   type="range"
-                  min="0.5"
-                  max={Math.min(TELEGRAM_MAX_DURATION, Math.max(0.5, source.duration))}
-                  step="0.1"
+                  min={Math.min(0.5, source.duration)}
+                  max={Math.min(TELEGRAM_MAX_DURATION, source.duration)}
+                  step="any"
                   value={clipDuration}
                   onChange={(event) => {
                     const nextDuration = Number(event.target.value);
@@ -611,6 +627,7 @@ function App() {
 
       <footer className="site-footer">
         <span>Telegram Video Sticker Maker / built with Codex</span>
+        <a className="github-link" href="https://github.com/kitttt2025/telegram-video-sticker-maker" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>
         <span>For Telegram video stickers / no uploads / no API keys</span>
       </footer>
     </div>

@@ -100,7 +100,7 @@ export function drawSquareFrame(
   fit: FitMode,
   background: string,
 ): void {
-  const { width, height } = video;
+  const { videoWidth: width, videoHeight: height } = video;
   if (!width || !height) return;
 
   context.fillStyle = background;

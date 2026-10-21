@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { baseName, formatBytes, formatDuration, safeDownloadName } from './format';
+import { baseName, formatBytes, formatDuration, formatTimecode, safeDownloadName } from './format';
 import { estimateBitrate } from './transcode';
 
 describe('format helpers', () => {
@@ -11,6 +11,12 @@ describe('format helpers', () => {
 
   it('formats durations', () => {
     expect(formatDuration(65.2)).toBe('1:05');
+  });
+
+  it('keeps subsecond trim positions visible and carries rounded seconds', () => {
+    expect(formatTimecode(2.35)).toBe('0:02.35');
+    expect(formatTimecode(59.999)).toBe('1:00.00');
+    expect(formatTimecode(Number.NaN)).toBe('0:00.00');
   });
 
   it('creates a safe WebM download name', () => {

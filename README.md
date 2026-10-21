@@ -18,7 +18,9 @@ no account, API key or video upload is required.
   whole frame with a background colour of your choice.
 - **Control the size.** Choose a file-size target and frame rate. The converter
   retries at lower bitrates to fit the target, or explains what to adjust.
-- **Preview and download.** Check the result before saving the `.webm` file.
+- **Preview as you edit.** Moving the start or length updates the preview frame.
+  Play only the selected range in a loop, scrub through it, and see Fill, Fit and
+  background changes instantly before encoding. Preview the export before saving.
 - **Keep conversion local.** No backend, analytics, remote video processing or
   third-party font requests.
 
@@ -33,7 +35,11 @@ Use the language buttons in the guide to switch between them.
    drag in a video, or choose one from your device.
 2. Select a clip of up to **3 seconds**. Choose **Fill** or **Fit**, and adjust the
    background, size limit or frame rate if needed.
-3. Click **Create WebM**, preview the result, then click **Download WebM**.
+3. Use **Play selection** to loop your selected range, or drag the preview slider
+   to inspect a frame. Start and Length changes update the preview immediately,
+   and Fill, Fit and background changes remain visible during playback.
+4. Click **Create WebM**, preview the encoded result, then click **Download WebM**.
+   Changing a setting clears the previous export so you can create an updated file.
 
 ### 2. Create a new sticker pack
 
@@ -76,7 +82,8 @@ This tool creates video stickers; it does not export `.tgs` animations or custom
 
 1. [開啟網站](https://kitttt2025.github.io/telegram-video-sticker-maker/)，拖入影片，或從裝置選取 MP4、MOV、WebM 或 OGG 檔案。
 2. 選取最多 **3 秒**的片段。**Fill** 會將畫面裁切為正方形；**Fit** 會保留完整畫面，並以指定顏色填補空白區域。
-3. 如有需要，可調整檔案大小上限及影格率。按下 **Create WebM**，預覽結果後，再按 **Download WebM** 下載。
+3. 調整起點或長度時，預覽會即時顯示片段的首幀或尾幀。按 **Play selection** 可循環播放所選範圍，也可拖動預覽滑桿檢視個別畫面。**Fill**、**Fit** 及底色的變更會即時反映在預覽中。
+4. 如有需要，可調整檔案大小上限及影格率。按下 **Create WebM**，預覽結果後，再按 **Download WebM** 下載。變更設定後，舊的匯出結果會清除，請重新轉檔。
 
 ### 建立新的貼圖包
 
